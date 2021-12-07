@@ -1,13 +1,22 @@
 <template>
   <section class="container">
-    <p>Hello World</p>
-    <Tutorial />
+    <div>
+      {{ users[0].id }}, {{ users[0].name }}
+    </div>
   </section>
 </template>
 
 <script>
-import Tutorial from "../components/Tutorial";
+const axios = require('axios')
+let url = 'https://jsonplaceholder.typicode.com/users'
+
 export default {
-  components: {Tutorial}
+  asyncData({ params }) {
+    return axios.get(url)
+      .then((res) => {
+        return { users: res.data }
+      })
+  }
 }
 </script>
+
